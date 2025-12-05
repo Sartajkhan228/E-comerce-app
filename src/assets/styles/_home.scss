@@ -60,8 +60,8 @@
     >div{
         position: absolute;
         @include square(100%);
-        top:0;
-        left: 0;
+        top:50;
+        left: 20;
         background-color: #0000006b;
         @include flex;
         @include square(3rem);
@@ -75,5 +75,6 @@
         &:hover{
             rotate: 20deg;
         }
+        border: solid;
     }
 }

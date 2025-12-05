@@ -47,6 +47,15 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.384);
 }
 
-$color2: rgba(11, 11, 11, 0.575); // Example: blue color used for header text
-$color3: rgba(82, 78, 78, 0.587);  // Example: purple color on hover
+@mixin btn($bg, $color,$p: 0.5rem 1rem ) {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  padding: $p;
+  background-color: $bg;
+  color: $color;
+}
 
+$color2: rgba(189, 185, 185, 0.575); // Example: blue color used for header text
+$color3: rgba(154, 143, 143, 0.587);  // Example: purple color on hover
+$color1:rgb(56, 121, 133)

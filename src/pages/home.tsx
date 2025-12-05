@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom"
 import ProductCard from "../components/product-card"
-import image from "../assets/assets/images/tails.png"
 
 const Home = () => {
 
@@ -24,7 +23,7 @@ const Home = () => {
                     price={678}
                     stock={67}
                     handler={addToCartHandler}
-                    photo={image}
+                    photo="https://m.media-amazon.com/images/I/71cWZUr9SVL._AC_SX342_.jpg"
 
                 />
             </main>
