@@ -11,6 +11,14 @@ const cartItems = [
         price: 3000,
         quantity: 4,
         stock: 10
+    },
+    {
+        productId: "fkjhjj",
+        photo: "https://m.media-amazon.com/images/I/71cWZUr9SVL._AC_SX342_.jpg",
+        name: "Macbook",
+        price: 3000,
+        quantity: 4,
+        stock: 10
     }
 ];
 const subTotal = 4000;
@@ -86,4 +94,4 @@ const Cart = () => {
     )
 }
 
-export default Cart
+export default Cart;
