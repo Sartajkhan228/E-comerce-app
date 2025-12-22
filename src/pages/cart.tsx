@@ -11,15 +11,8 @@ const cartItems = [
         price: 3000,
         quantity: 4,
         stock: 10
-    },
-    {
-        productId: "fkjhjj",
-        photo: "https://m.media-amazon.com/images/I/71cWZUr9SVL._AC_SX342_.jpg",
-        name: "Macbook",
-        price: 3000,
-        quantity: 4,
-        stock: 10
     }
+
 ];
 const subTotal = 4000;
 const tax = Math.round(subTotal * 0.18);
@@ -45,6 +38,23 @@ const Cart = () => {
             setIsCouponCodeValid(false)
         }
     }, [couponCode])
+
+
+    const getValidCode = async () => {
+        const response = await fetch("http://localhost:3000/api/v1/payment/discount");
+
+        if (!response.ok) return console.log("Error getting response")
+
+        const data = await response.json();
+
+        setIsCouponCodeValid(true)
+
+        // console.log("data", data)
+    }
+
+    useEffect(() => {
+        getValidCode()
+    })
 
 
     return (
