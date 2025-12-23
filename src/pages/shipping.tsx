@@ -13,9 +13,7 @@ const Shipping = () => {
 
     const navigate = useNavigate()
 
-    const handleChange = (
-        e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-    ) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setShippingInfo((prev) => ({
             ...prev,
             [e.target.name]: e.target.value
@@ -79,7 +77,6 @@ const Shipping = () => {
                 <button>
                     pay now
                 </button>
-
             </form>
         </div>
     );
