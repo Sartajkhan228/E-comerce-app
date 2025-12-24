@@ -9,7 +9,7 @@ const Header = () => {
 
 
 
-    const user = { _id: "1", role: "admin" }
+    const user = { _id: "", role: "admin" }
 
     const logOutHandler = () => {
         setIsOpen(false)
