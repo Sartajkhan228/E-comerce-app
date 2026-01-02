@@ -10,6 +10,7 @@ import { getUser } from './redux/api/userApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { userExitst, userNotExitst } from './redux/reducer/userReducer';
 import type { UserReducerInitialState } from './types/user-reducer';
+import ProtectedRoute from './components/protected-route';
 
 const Home = lazy(() => import("./pages/home"))
 const Search = lazy(() => import("./pages/search"))
@@ -48,6 +49,7 @@ const App = () => {
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
+        console.log("USER", user)
         const data = await getUser(user.uid);
         dispatch(userExitst(data.user))
       } else {
@@ -84,9 +86,9 @@ const App = () => {
 
             {/* admin */}
             <Route
-            // element={
-            //   <ProtectedRoute isAuthenticated={true} adminRoute={true} isAdmin={true} />
-            // }
+              element={
+                <ProtectedRoute isAuthenticated={true} adminRoute={true} isAdmin={true} />
+              }
             >
               <Route path="/admin/dashboard" element={<Dashboard />} />
               <Route path="/admin/product" element={<Products />} />
