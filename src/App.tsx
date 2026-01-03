@@ -47,15 +47,22 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        console.log("USER", user)
-        const data = await getUser(user.uid);
-        dispatch(userExitst(data.user))
-      } else {
+
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      try {
+        if (user) {
+          console.log("USER", user)
+          const data = await getUser(user.uid);
+          dispatch(userExitst(data.user))
+        } else {
+          dispatch(userNotExitst())
+        }
+      } catch (error) {
         dispatch(userNotExitst())
       }
     })
+
+    return () => unsubscribe();
   }, [])
 
 
@@ -77,7 +84,7 @@ const App = () => {
 
 
             {/* logged in user routes */}
-            <Route>
+            <Route element={<ProtectedRoute />}>
               <Route path='/shipping' element={<Shipping />} />
               <Route path='/orders' element={<Orders />} />
               <Route path='/order/:id' element={<OrderDetails />} />

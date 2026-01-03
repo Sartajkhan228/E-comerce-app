@@ -12,12 +12,12 @@ export const userReducer = createSlice({
     initialState,
     reducers: {
         userExitst: (state, action: PayloadAction<User>) => {
-            state.loading = false;
             state.user = action.payload;
+            state.loading = false;
         },
         userNotExitst: (state) => {
-            state.loading = false;
             state.user = null;
+            state.loading = false;
         }
         // Define reducers here
     }

@@ -24,14 +24,20 @@ export const userApi = createApi({
 export const getUser = async (id: string) => {
     console.log("API FOR GETTING USER WITH ID")
     try {
+        console.log("API FOR GETTING USER WITH ID12345678")
         const { data }: { data: UserResponse } = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/v1/user/${id}`, {
             withCredentials: true
         });
-        console.error("User data:", data);
-        return data;
+        if (!data.success) {
+            console.error("Error getting user!");
+        } else {
+            console.log("DATA", data)
+            return data;
+        }
 
     } catch (error) {
         console.error("Error getting users:", error);
+        console.error("User data:", error);
         throw error;
     }
 
