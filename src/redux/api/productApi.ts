@@ -12,9 +12,15 @@ export const productApi = createApi({
                 url: "latest",
                 method: "GET"
             })
+        }),
+        getAllProducts: builder.query({
+            query: () => ({
+                url: 'all',
+                method: 'GET'
+            })
         })
     })
 })
 
-export const { useGetLatestProductsQuery } = productApi;
+export const { useGetLatestProductsQuery, useGetAllProductsQuery } = productApi;
 

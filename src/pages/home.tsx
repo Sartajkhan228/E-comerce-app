@@ -1,12 +1,19 @@
 import { Link } from "react-router-dom"
 import ProductCard from "../components/product-card"
 import { useGetLatestProductsQuery } from "../redux/api/productApi"
+import toast from "react-hot-toast";
 
 const Home = () => {
 
-    const { data, isLoading } = useGetLatestProductsQuery("");
+    const { data, isLoading, isError } = useGetLatestProductsQuery("");
 
     console.log("DATA", data)
+
+    if (isLoading) toast.loading("loading products...");
+
+    if (isError) toast.error("error loading products");
+
+    if (data) toast.dismiss();
 
     const addToCartHandler = () => { }
 
@@ -22,18 +29,23 @@ const Home = () => {
             </h1>
 
             <main>
-                <ProductCard
-                    productId="567"
-                    name="macbook"
-                    price={678}
-                    stock={67}
-                    handler={addToCartHandler}
-                    photo="https://m.media-amazon.com/images/I/71cWZUr9SVL._AC_SX342_.jpg"
-
-                />
+                {
+                    data?.products.map(item => (
+                        <ProductCard
+                            key={item._id}
+                            productId={item._id}
+                            name={item.name}
+                            price={item.price}
+                            stock={item.stock}
+                            handler={addToCartHandler}
+                            photo={item.photo}
+                        // photo="https://m.media-amazon.com/images/I/71cWZUr9SVL._AC_SX342_.jpg"
+                        />
+                    ))
+                }
             </main>
         </div>
     )
 }
 
-export default Home
+export default Home;
