@@ -7,3 +7,13 @@ export interface User {
     gender: string;
     photo: string;
 }
+
+
+export interface Product {
+    _id: string;
+    name: string;
+    price: number;
+    stock: number;
+    catergory: string;
+    photo: string;
+}

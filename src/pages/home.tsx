@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom"
 import ProductCard from "../components/product-card"
+import { useGetLatestProductsQuery } from "../redux/api/productApi"
 
 const Home = () => {
+
+    const { data, isLoading } = useGetLatestProductsQuery("");
+
+    console.log("DATA", data)
 
     const addToCartHandler = () => { }
 
