@@ -13,12 +13,13 @@ export const productApi = createApi({
                 method: "GET"
             })
         }),
-        getAllProducts: builder.query({
+        getAllProducts: builder.query<AllProductsResponse, string>({
             query: () => ({
-                url: 'all',
+                url: 'admin-products',
                 method: 'GET'
             })
-        })
+        }),
+
     })
 })
 
