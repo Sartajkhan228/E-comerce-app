@@ -6,6 +6,14 @@ export type MessageResponse = {
     message: string;
 }
 
+export type CustomeError = {
+    status: number;
+    data: {
+        message: string;
+        success: boolean;
+    }
+}
+
 export type UserResponse = {
     success: boolean;
     user: User;

@@ -14,8 +14,8 @@ export const productApi = createApi({
             })
         }),
         getAllProducts: builder.query<AllProductsResponse, string>({
-            query: () => ({
-                url: 'admin-products',
+            query: (id) => ({
+                url: `admin-products?id=${id}`,
                 method: 'GET'
             })
         }),
