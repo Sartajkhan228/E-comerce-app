@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import type { CustomeError } from "../../types/api-types";
 import { useSelector } from "react-redux";
 import type { UserReducerInitialState } from "../../types/user-reducer";
+import { Skeletonloader } from "../../components/loader";
 
 interface DataType {
   photo: ReactElement;
@@ -67,7 +68,7 @@ const columns: Column<DataType>[] = [
 
 const Products = () => {
   const { user } = useSelector((state: { userReducer: UserReducerInitialState }) => state.userReducer)
-  const { data, isError, error } = useGetAllProductsQuery(user?._id!)
+  const { data, isLoading, isError, error } = useGetAllProductsQuery(user?._id!)
   const [rows, setRows] = useState<DataType[]>([]);
 
   useEffect(() => {
@@ -89,7 +90,7 @@ const Products = () => {
       stock: item.stock,
       action: <Link to={`/admin/product/${item._id}`}>Manage</Link>
     })));
-  }, [data]);
+  }, [data])
 
 
   const Table = TableHOC<DataType>(
@@ -100,13 +101,10 @@ const Products = () => {
     rows.length > 6
   )();
 
-
-
-
   return (
     <div className="admin-container">
       <AdminSidebar />
-      <main>{Table}</main>
+      <main> {isLoading ? <Skeletonloader /> : Table}</main>
       <Link to="/admin/product/new" className="create-product-btn">
         <FaPlus />
       </Link>
