@@ -4,7 +4,7 @@ import type { AllProductsResponse } from "../../types/api-types";
 
 export const productApi = createApi({
     reducerPath: "productApi",
-    baseQuery: fetchBaseQuery({ baseUrl: `${import.meta.env.VITE_BASE_URL}/api/v1/product/` }),
+    baseQuery: fetchBaseQuery({ baseUrl: `${import.meta.env.VITE_SERVER_URL}/api/v1/product/` }),
     endpoints: (builder) => ({
         // End points
         getLatestProducts: builder.query<AllProductsResponse, string>({

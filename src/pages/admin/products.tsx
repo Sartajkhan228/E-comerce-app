@@ -1,6 +1,6 @@
 import { ReactElement, useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { Link, Links } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Column } from "react-table";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import TableHOC from "../../components/admin/TableHOC";
@@ -68,8 +68,13 @@ const columns: Column<DataType>[] = [
 
 const Products = () => {
   const { user } = useSelector((state: { userReducer: UserReducerInitialState }) => state.userReducer)
-  const { data, isLoading, isError, error } = useGetAllProductsQuery(user?._id!)
+  const adminId = user?._id
+  const { data, isLoading, isError, error } = useGetAllProductsQuery(adminId as string, {
+    skip: !adminId
+  })
   const [rows, setRows] = useState<DataType[]>([]);
+  console.log("USER IN PRODUCTS", adminId)
+  console.log("PRODUCTS DATA", data)
 
   useEffect(() => {
     if (isError && error) {
@@ -83,7 +88,10 @@ const Products = () => {
 
 
   useEffect(() => {
-    if (data) setRows(data.products.map((item) => ({
+
+    if (!data) return;
+
+    setRows(data.product.map((item) => ({
       photo: <img src={`${server}/${item.photo}`} />,
       name: item.name,
       price: item.price,
@@ -100,6 +108,8 @@ const Products = () => {
     "Products",
     rows.length > 6
   )();
+
+  console.log("ROWS OF PRODUCTS", rows)
 
   return (
     <div className="admin-container">

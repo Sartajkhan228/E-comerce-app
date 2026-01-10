@@ -52,7 +52,8 @@ const App = () => {
       try {
         if (user) {
           console.log("USER", user)
-          const data = await getUser(user.uid);
+          // const data = await getUser(user.uid);
+          const data = await getUser(54);
           dispatch(userExitst(data.user))
         } else {
           dispatch(userNotExitst())
