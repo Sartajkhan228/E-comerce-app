@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { AllProductsResponse } from "../../types/api-types";
+import type { AllProductsResponse, CategoriesResponse } from "../../types/api-types";
 
 
 export const productApi = createApi({
@@ -19,9 +19,14 @@ export const productApi = createApi({
                 method: 'GET'
             })
         }),
-
+        categories: builder.query<CategoriesResponse, string>({
+            query: () => ({
+                url: `categories`,
+                method: 'GET'
+            })
+        }),
     })
 })
 
-export const { useGetLatestProductsQuery, useGetAllProductsQuery } = productApi;
+export const { useGetLatestProductsQuery, useGetAllProductsQuery, useCategoriesQuery } = productApi;
 
