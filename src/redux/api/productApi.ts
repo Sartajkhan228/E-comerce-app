@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { AllProductsResponse, CategoriesResponse } from "../../types/api-types";
+import type { AllProductsResponse, CategoriesResponse, SearchProductsResponse } from "../../types/api-types";
 
 
 export const productApi = createApi({
@@ -25,6 +25,12 @@ export const productApi = createApi({
                 method: 'GET'
             })
         }),
+        getSearchedProducts: builder.query<SearchProductsResponse, string>({
+            query: (id) => ({
+                url: `all?id=${id}`,
+                method: 'GET'
+            })
+        })
     })
 })
 

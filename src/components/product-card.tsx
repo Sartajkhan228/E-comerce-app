@@ -11,13 +11,13 @@ type ProductProps = {
 
 }
 
-const server = "dftgyuiohugvhjk"
+const server = "http://localhost:3000";
 
 
 const ProductCard = ({ productId, photo, name, price, stock, handler }: ProductProps) => {
     return (
         <div className="product-card">
-            <img src={photo} alt={name} />
+            <img src={`${server}/${photo.replace(/\\/g, "/")}`} alt={name} className="card-product-image" />
             <p>{name}</p>
             <span>£{price}</span>
 

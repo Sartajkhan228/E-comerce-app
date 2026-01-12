@@ -38,8 +38,8 @@
 }
 
 .product-card{
-    width: 18.75rem;
-    height: 25rem;
+    width: 100rem;
+    height: 100rem;
     padding: 1rem;
     flex: none;
     @include flex(column, flex-start, center, 4px);

@@ -33,7 +33,7 @@ const Home = () => {
                 {isLoading ? <Loader />
                     :
                     (
-                        data?.products.map(item => (
+                        data?.product.map(item => (
                             <ProductCard
                                 key={item._id}
                                 productId={item._id}
