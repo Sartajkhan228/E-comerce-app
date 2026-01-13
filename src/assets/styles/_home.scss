@@ -38,19 +38,25 @@
 }
 
 .product-card{
-    width: 100rem;
-    height: 100rem;
+    // width: 17rem;
+    // height: 17rem;
     padding: 1rem;
+
+    border: 1px solid #ccc;
     flex: none;
+    gap: 0.5rem;
     @include flex(column, flex-start, center, 4px);
     position: relative;
     background-color: white;
 
-    img {
-        @include square(calc(18.75 - 3));
-        object-fit:cover;
-        margin: 1rem;
-    }
+    // img {
+    //     @include square(calc(18.75 - 3));
+    //     object-fit:cover;
+    //     margin: 1rem;
+
+    //         border: 1px solid #ccc;
+
+    // }
 
     span{
         font-weight: 700;
@@ -77,4 +83,5 @@
         }
         border: solid;
     }
+    
 }
