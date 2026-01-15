@@ -29,9 +29,19 @@ export type CategoriesResponse = {
     categories: string[];
 }
 
-export type SearchProductsResponse = {
-    success: boolean;
-    products: Product[];
+export type SearchProductsResponse = AllProductsResponse & {
     totalPages: number;
+}
 
+export type SearchProductsRequest = {
+    page: number;
+    price: number;
+    category?: string;
+    search?: string;
+    sort?: string;
+}
+
+export type NewProductRequestBody = {
+    id: string;
+    formData: FormData;
 }

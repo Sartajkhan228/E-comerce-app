@@ -1,12 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProductCard from "../components/product-card";
-import { useCategoriesQuery } from "../redux/api/productApi";
 import toast from "react-hot-toast";
+import { useCategoriesQuery, useGetSearchedProductsQuery } from "../redux/api/productApi";
+import { Skeletonloader } from "../components/loader";
 
 const Search = () => {
-
-
-    const { data: categoriesResponse, isLoading: categoriesLoading, isError } = useCategoriesQuery("");
 
 
     const [search, setSearch] = useState("");
@@ -15,6 +13,17 @@ const Search = () => {
     const [category, setCategory] = useState("");
     const [page, setPage] = useState(1);
 
+    const { isLoading: categoriesLoading, isError: categoriesError, data: categoriesResponse } = useCategoriesQuery("");
+    const { isLoading: searchedProductsLoading, isError: searchedProductsError, data: searchedProductsResponse } = useGetSearchedProductsQuery({
+        search,
+        sort,
+        price: maxPrice,
+        category,
+        page
+    })
+
+    console.log("CATEGORIES DATA", categoriesResponse)
+    console.log("SEARCH DATA", searchedProductsResponse)
 
 
     const addToCartHandler = () => { }
@@ -23,10 +32,17 @@ const Search = () => {
     const isNextPage = page < 4;
 
 
-    if (isError) {
-        <div>Error loading categories</div>
-        toast.error("Error loading categories");
+
+    useEffect(() => {
+        if (searchedProductsError || categoriesError) {
+            toast.error("Error loading categories or products");
+        }
+    }, [searchedProductsError, categoriesError]);
+
+    if (searchedProductsError || categoriesError) {
+        return <div>Error loading categories or products</div>;
     }
+
 
     return (
         <div className="product-search-page">
@@ -81,27 +97,43 @@ const Search = () => {
                 />
 
                 <div className="search-product-list">
-                    <ProductCard
-                        productId="567"
-                        name="macbook"
-                        price={678}
-                        stock={67}
-                        handler={addToCartHandler}
-                        photo="https://m.media-amazon.com/images/I/71cWZUr9SVL._AC_SX342_.jpg"
-                    />
+
+
+                    {
+                        searchedProductsLoading ? <Skeletonloader />
+                            :
+                            (
+                                searchedProductsResponse?.products.map((item) => (
+                                    <ProductCard
+                                        key={item._id}
+                                        productId={item._id}
+                                        name={item.name}
+                                        price={item.price}
+                                        stock={item.stock}
+                                        handler={addToCartHandler}
+                                        photo={item.photo}
+                                    />
+                                ))
+                            )
+                    }
                 </div>
 
-                <article>
-                    <button disabled={!isPrevPage}
-                        onClick={() => setPage((prev) => prev - 1)}>
-                        Prev
-                    </button>
-                    <span>{page} of {5}</span>
-                    <button disabled={!isNextPage}
-                        onClick={() => setPage((prev) => prev + 1)}>
-                        Next
-                    </button>
-                </article>
+                {
+                    searchedProductsResponse && searchedProductsResponse.totalPages > 1 && (
+
+                        <article>
+                            <button disabled={!isPrevPage}
+                                onClick={() => setPage((prev) => prev - 1)}>
+                                Prev
+                            </button>
+                            <span>{page} of {searchedProductsResponse.totalPages}</span>
+                            <button disabled={!isNextPage}
+                                onClick={() => setPage((prev) => prev + 1)}>
+                                Next
+                            </button>
+                        </article>
+                    )
+                }
             </main>
 
         </div>

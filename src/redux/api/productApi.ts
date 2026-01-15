@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { AllProductsResponse, CategoriesResponse, SearchProductsResponse } from "../../types/api-types";
+import type { AllProductsResponse, CategoriesResponse, MessageResponse, NewProductRequestBody, SearchProductsRequest, SearchProductsResponse } from "../../types/api-types";
 
 
 export const productApi = createApi({
@@ -25,14 +25,28 @@ export const productApi = createApi({
                 method: 'GET'
             })
         }),
-        getSearchedProducts: builder.query<SearchProductsResponse, string>({
-            query: (id) => ({
+        getSearchedProducts: builder.query<SearchProductsResponse, SearchProductsRequest>({
+            query: ({ page, price, category, search, sort }) => {
+                let base = `search?search=${search}&page=${page}`
+
+                if (price) { base += `&price=${price}` };
+
+                if (category) { base += `&category=${category}` };
+
+                if (sort) { base += `&sort=${sort}` };
+
+                return base;
+            },
+        }),
+        createProduct: builder.mutation<MessageResponse, NewProductRequestBody>({
+            query: ({ formData, id }) => ({
                 url: `all?id=${id}`,
-                method: 'GET'
-            })
-        })
+                method: 'POST',
+                body: formData,
+            }),
+        }),
     })
 })
 
-export const { useGetLatestProductsQuery, useGetAllProductsQuery, useCategoriesQuery } = productApi;
+export const { useGetLatestProductsQuery, useGetAllProductsQuery, useCategoriesQuery, useGetSearchedProductsQuery, useCreateProductMutation } = productApi;
 
