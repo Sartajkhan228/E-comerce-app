@@ -17,7 +17,7 @@ const server = "http://localhost:3000";
 const ProductCard = ({ productId, photo, name, price, stock, handler }: ProductProps) => {
     return (
         <div className="product-card">
-            <img src={`${server}/${photo.replace(/\\/g, "/")}`} alt={name} className="card-product-image" />
+            <img src={`${server}/${photo}`} alt={name} className="card-product-image" />
             <p>{name}</p>
             <span>£{price}</span>
 

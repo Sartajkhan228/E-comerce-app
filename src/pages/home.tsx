@@ -29,7 +29,7 @@ const Home = () => {
             </h1>
 
             <main>
-                <Skeletonloader />
+                {/* <Skeletonloader /> */}
                 {isLoading ? <Loader />
                     :
                     (
@@ -42,7 +42,6 @@ const Home = () => {
                                 stock={item.stock}
                                 handler={addToCartHandler}
                                 photo={item.photo}
-                            // photo="https://m.media-amazon.com/images/I/71cWZUr9SVL._AC_SX342_.jpg"
                             />
                         ))
                     )
