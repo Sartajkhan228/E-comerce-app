@@ -49,8 +49,9 @@ const NewProduct = () => {
       formData.set("stock", stock.toString());
       formData.set("photo", photo);
 
-      const res = await createProduct({ formData, id: user?.id! }).unwrap();
-      responseToast(res, navigate, "/admin/products");
+      const res = await createProduct({ formData, id: user?._id! }).unwrap();
+
+      responseToast(res, navigate, "/admin/product");
 
       // reset form
       setName("");
