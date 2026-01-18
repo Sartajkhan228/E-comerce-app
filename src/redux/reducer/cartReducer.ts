@@ -20,7 +20,7 @@ const initialState: CartReducerInitialState = {
     }
 };
 
-const cartReducer = createSlice({
+export const cartReducer = createSlice({
     name: "cartReducer",
     initialState,
     reducers: {
@@ -33,9 +33,12 @@ const cartReducer = createSlice({
             state.loading = true;
             state.cartItems = state.cartItems.filter((item) => item.productId !== action.payload);
             state.loading = false
+        },
+        discountApplied: (state, action: PayloadAction<number>) => {
+            state.discount = action.payload;
         }
     }
 })
 
-export const { addToCart, removeCartItem } = cartReducer.actions;
+export const { addToCart, removeCartItem, discountApplied } = cartReducer.actions;
 export default cartReducer;
