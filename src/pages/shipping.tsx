@@ -1,8 +1,13 @@
 import { useState, type ChangeEvent } from "react";
 import { BiArrowBack } from "react-icons/bi";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import type { CartReducerInitialState } from "../types/user-reducer";
 
 const Shipping = () => {
+
+    const { cartItems } = useSelector((state: { cartReducer: CartReducerInitialState }) => state.cartReducer)
+
     const [shippingInfo, setShippingInfo] = useState({
         address: "",
         city: "",

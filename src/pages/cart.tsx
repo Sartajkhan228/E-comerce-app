@@ -4,7 +4,7 @@ import CartItems from "../components/cart-items";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { CartReducerInitialState } from "../types/user-reducer";
-import { discountApplied } from "../redux/reducer/cartReducer";
+import { calculatePrice, discountApplied } from "../redux/reducer/cartReducer";
 import axios from "axios";
 
 
@@ -16,19 +16,6 @@ const Cart = () => {
     const [isCouponCodeValid, setIsCouponCodeValid] = useState<boolean>(false);
     const dispatch = useDispatch();
 
-
-
-    // useEffect(() => {
-    //     const timeOutId = setTimeout(() => {
-    //         if (Math.random() > 0.5) setIsCouponCodeValid(true);
-    //         else setIsCouponCodeValid(false)
-    //     }, 1000);
-
-    //     return () => {
-    //         clearTimeout(timeOutId)
-    //         setIsCouponCodeValid(false)
-    //     }
-    // }, [couponCode])
 
 
     useEffect(() => {
@@ -51,12 +38,14 @@ const Cart = () => {
                     dispatch(discountApplied(res.data.discount));
                     console.log("COUPONCODE", res.data);
                     setIsCouponCodeValid(true);
+                    dispatch(calculatePrice());
                 })
                 .catch((error) => {
                     if (axios.isCancel(error)) return;
 
                     dispatch(discountApplied(0));
                     setIsCouponCodeValid(false);
+                    dispatch(calculatePrice());
                 })
         }, 600);
 
@@ -66,7 +55,7 @@ const Cart = () => {
         }
 
 
-    }, [couponCode, dispatch])
+    }, [couponCode, cartItems, dispatch])
 
 
     return (
