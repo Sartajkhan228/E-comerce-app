@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -24,6 +24,14 @@ const Shipping = () => {
             [e.target.name]: e.target.value
         }));
     };
+
+    useEffect(() => {
+        if (cartItems.length <= 0) {
+            navigate("/cart");
+        }
+    }, [cartItems, navigate]);
+
+
 
     return (
         <div className="shipping">

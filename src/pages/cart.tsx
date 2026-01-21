@@ -55,8 +55,11 @@ const Cart = () => {
         }
 
 
-    }, [couponCode, cartItems, dispatch])
+    }, [couponCode, dispatch]);
 
+    useEffect(() => {
+        dispatch(calculatePrice())
+    }, [cartItems, dispatch]);
 
     return (
         <div className="cart">

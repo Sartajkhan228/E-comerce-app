@@ -59,3 +59,8 @@ export type deleteProductRequest = {
     userId: string;
     productId: string;
 }
+
+export type AllOrderResponse = {
+    userId: string;
+
+}

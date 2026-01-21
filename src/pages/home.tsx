@@ -26,7 +26,7 @@ const Home = () => {
         if (cartItems)
 
             dispatch(addToCart(cartItems));
-    }
+    };
 
 
     return (
