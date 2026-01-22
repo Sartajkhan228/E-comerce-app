@@ -34,3 +34,6 @@ export type CartItems = {
     quantity: number;
     stock: number;
 }
+
+// all properties are added here like CartItems except stock and added mongodb id
+export type OrderItems = Omit<CartItems, "stock"> & { _id: string }
