@@ -37,3 +37,16 @@ export type CartItems = {
 
 // all properties are added here like CartItems except stock and added mongodb id
 export type OrderItems = Omit<CartItems, "stock"> & { _id: string }
+
+export type Order = {
+    orderItems: OrderItems[];
+    shippingInfo: ShippingInfo;
+    subtotal: number;
+    tax: number;
+    shippingCharges: number;
+    discount: number;
+    total: number;
+    status: string;
+    user: { _id: string; name: string; }
+    _id: string;
+}

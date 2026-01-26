@@ -1,4 +1,4 @@
-import type { CartItems, Product, ShippingInfo, User } from "./types";
+import type { CartItems, Order, Product, ShippingInfo, User } from "./types";
 
 
 export type MessageResponse = {
@@ -60,12 +60,17 @@ export type deleteProductRequest = {
     productId: string;
 }
 
-export type AllOrderResponse = {
-    userId: string;
+// order api routes types:
 
+export type AllOrderResponse = {
+    success: boolean;
+    orders: Order[];
 }
 
-// order api routes types:
+export type OrderDetailsResponse = {
+    success: boolean;
+    orders: Order[];
+}
 
 export type NewOrderRequest = {
     user: string;
@@ -85,11 +90,11 @@ export type NewOrderRequestBody = {
 
 export type UpdateOrderRequest = {
     userId: string;
-    productId: string;
+    orderId: string;
     formData: FormData;
 }
 
 export type DeleteOrderRequest = {
     userId: string;
-    productId: string;
+    orderId: string;
 }
