@@ -1,8 +1,12 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Column } from "react-table";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import TableHOC from "../../components/admin/TableHOC";
+import { useSelector } from "react-redux";
+import type { UserReducerInitialState } from "../../types/user-reducer";
+import toast from "react-hot-toast";
+import { useAllOrdersQuery } from "../../redux/api/orderApi";
 
 interface DataType {
   user: string;
@@ -69,7 +73,40 @@ const columns: Column<DataType>[] = [
 ];
 
 const Transaction = () => {
+
+  const { user } = useSelector((state: { userReducer: UserReducerInitialState }) => state.userReducer);
+  const adminId = user?._id;
+
+  const { data, isLoading, isError, error } = useAllOrdersQuery(adminId as string,
+    { skip: !adminId }
+  );
   const [rows, setRows] = useState<DataType[]>(arr);
+
+
+  console.log("DATA IN TRANSACTIONS", data)
+
+
+  useEffect(() => {
+    if (isError && error) {
+      if ("data" in error) {
+        toast.error((error.data as any)?.message);
+      } else {
+        toast.error("Network error");
+      }
+    }
+  }, [isError, error]);
+
+  useEffect(() => {
+    if (!data) return;
+    setRows(data.orders.map((item) => ({
+      user: item.user.name,
+      amount: item.total,
+      discount: item.discount,
+      quantity: item.orderItems.length,
+      status: <span className="green">Shipped</span>,
+      action: <Link to={`/admin/transaction/${item._id}`}>Manage</Link>
+    })));
+  }, [data])
 
   const Table = TableHOC<DataType>(
     columns,

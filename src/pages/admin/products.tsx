@@ -73,8 +73,6 @@ const Products = () => {
     skip: !adminId
   })
   const [rows, setRows] = useState<DataType[]>([]);
-  console.log("USER IN PRODUCTS", adminId)
-  console.log("PRODUCTS DATA", data)
 
   useEffect(() => {
     if (isError && error) {

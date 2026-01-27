@@ -91,7 +91,6 @@ export type NewOrderRequestBody = {
 export type UpdateOrderRequest = {
     userId: string;
     orderId: string;
-    formData: FormData;
 }
 
 export type DeleteOrderRequest = {
