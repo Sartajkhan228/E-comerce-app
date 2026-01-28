@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import type { UserReducerInitialState } from "../../types/user-reducer";
 import toast from "react-hot-toast";
 import { useAllOrdersQuery } from "../../redux/api/orderApi";
+import { Skeletonloader } from "../../components/loader";
 
 interface DataType {
   user: string;
@@ -99,11 +100,12 @@ const Transaction = () => {
   useEffect(() => {
     if (!data) return;
     setRows(data.orders.map((item) => ({
+      key: item._id,
       user: item.user.name,
       amount: item.total,
       discount: item.discount,
       quantity: item.orderItems.length,
-      status: <span className="green">Shipped</span>,
+      status: <span className={item.status === "Delivered" ? "purple" : item.status === "Shipped" ? "green" : "red"}>{item.status}</span>,
       action: <Link to={`/admin/transaction/${item._id}`}>Manage</Link>
     })));
   }, [data])
@@ -115,10 +117,12 @@ const Transaction = () => {
     "Transactions",
     rows.length > 6
   )();
+
+
   return (
     <div className="admin-container">
       <AdminSidebar />
-      <main>{Table}</main>
+      <main>{isLoading ? <Skeletonloader /> : Table}</main>
     </div>
   );
 };
