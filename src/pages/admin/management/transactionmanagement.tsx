@@ -1,12 +1,12 @@
 import { FaTrash } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
-import { useSelector } from "react-redux";
+import { Skeletonloader } from "../../../components/loader";
 import { useDeleteOrderMutation, useOrderDetailsQuery, useUpdateOrderMutation } from "../../../redux/api/orderApi";
 import { server } from "../../../redux/store";
 import type { Order, OrderItems } from "../../../types/types";
 import type { UserReducerInitialState } from "../../../types/user-reducer";
-import { Skeletonloader } from "../../../components/loader";
 import { responseToast } from "../../../utils/features";
 
 

@@ -12,12 +12,13 @@ import { userExitst, userNotExitst } from './redux/reducer/userReducer';
 import type { UserReducerInitialState } from './types/user-reducer';
 import ProtectedRoute from './components/protected-route';
 
-const Home = lazy(() => import("./pages/home"))
-const Search = lazy(() => import("./pages/search"))
-const Cart = lazy(() => import("./pages/cart"))
-const Shipping = lazy(() => import("./pages/shipping"))
-const Orders = lazy(() => import("./pages/orders"))
-const OrderDetails = lazy(() => import("./pages/order-details"))
+const Home = lazy(() => import("./pages/home"));
+const Search = lazy(() => import("./pages/search"));
+const Cart = lazy(() => import("./pages/cart"));
+const Shipping = lazy(() => import("./pages/shipping"));
+const Orders = lazy(() => import("./pages/orders"));
+const OrderDetails = lazy(() => import("./pages/order-details"));
+const NotFound = lazy(() => import("./pages/not-found"));
 
 
 // admin
@@ -118,7 +119,7 @@ const App = () => {
 
               <Route path="/admin/transaction/:id" element={<TransactionManagement />} />
             </Route>;
-
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
         <Toaster position="bottom-center" />
